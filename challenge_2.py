@@ -8,9 +8,9 @@ def main(filename, step):
     nfs = []
     for t in range(0, z.size, step):
         x = z[t:min(t + step, z.size)]
-        if max(x) > 15000:  # filter out end
+        if max(x) > amp_thresh:  # filter out end
             wvs = np.fft.fft(x)[:len(x) // 2]
-            nfs.append(16000 * np.argsort(wvs) / step)
+            nfs.append(sample_rate * np.argsort(wvs) / step)
     best_fit = (None, -1)
     for octave in range(0, 9):
         for position in range(1, 6):
